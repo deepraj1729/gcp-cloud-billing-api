@@ -1,7 +1,7 @@
 # gcp-cloud-billing
 Cloud Billing - Cost Monitoring and Alerting API for Google Cloud (Billing Exports)
 
-![Demo](media/demo.png)
+![Overview](media/infra.svg)
 
 ## Use-Case:
 The project connects to Google Cloud BigQuery having Billing Export to Analyse, Monitor and Alerts for Cloud Cost and caches the results in Redis.
@@ -22,6 +22,8 @@ The rate limiter is set that maintains a LRU cache in memory that creates mappin
 
 ## Documentation:
 The documentation for the API will be available at `/docs` route serving via `Swagger`. This is thanks to the FastAPI integration with Swagger UI.
+
+![Demo](media/demo.png)
 
 ## References:
 The references for this project are mentioned below:
