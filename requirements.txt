@@ -1,0 +1,11 @@
+fastapi==0.104.1
+uvicorn[standard]
+gunicorn==21.2.0
+google-auth==2.25.2
+google-api-core==2.15.0
+google-cloud-core==2.4.1
+google-cloud-bigquery==3.13.0
+pandas==2.1.4
+db-dtypes==1.2.0
+cachetools==5.3.2
+redis==5.0.1

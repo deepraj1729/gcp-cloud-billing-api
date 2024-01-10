@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  api:
+    container_name: gcp_cloud_billing
+    restart: always
+
+    #? Build from current directory
+    build:
+      context: .
+      dockerfile: Dockerfile
+      
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS}
+      CLOUD_BILLING_EXPORT_PROJECT_ID: ${CLOUD_BILLING_EXPORT_PROJECT_ID}
+      CLOUD_BILLING_EXPORT_DATASET_ID: ${CLOUD_BILLING_EXPORT_DATASET_ID}
+      CLOUD_BILLING_EXPORT_TABLE_ID: ${CLOUD_BILLING_EXPORT_TABLE_ID}
+      CLOUD_BILLING_REDIS_URL: ${CLOUD_BILLING_REDIS_URL}
+      MAX_REQUESTS_PER_MINUTE: ${MAX_REQUESTS_PER_MINUTE}
+      LRU_CACHE_MAX_SIZE: ${LRU_CACHE_MAX_SIZE}
+      LRU_CACHE_RETENTION_PERIOD: ${LRU_CACHE_RETENTION_PERIOD}
+      MAX_BILLING_RESOURCE_COUNT: ${MAX_BILLING_RESOURCE_COUNT}
+      REDIS_KEY_EXPIRE_INTERVAL: ${REDIS_KEY_EXPIRE_INTERVAL}
+    
+    #? Debugging Entrypoint
+    entrypoint: ["uvicorn","src.server:app","--host","0.0.0.0","--port","8080","--reload"]
+    depends_on:
+      - redis
+
+    #? Expose port
+    ports:
+      - 8080:8080
+
+    volumes:
+      - ./src:/app/src
+  
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    restart: always
+
+    #? Expose port
+    ports:
+      - 6379:6379
